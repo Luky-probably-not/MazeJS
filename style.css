@@ -29,3 +29,21 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.maze {
+    display: grid;
+    grid-template-columns: repeat(10, 40px); /* 10 colonnes de 40px chacune */
+    gap: 2px; /* Espace entre les cellules */
+    margin-bottom: 20px;
+}
+
+.cell {
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff; /* Couleur de fond par défaut */
+    border: 1px solid #000000; /* Bordure noire */
+}
+
+.cell.wall {
+    background-color: #000000; /* Couleur de fond pour les murs */
+}
