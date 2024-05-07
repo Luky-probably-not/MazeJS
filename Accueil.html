@@ -12,9 +12,34 @@
     </header>
     <p>Le but principal de ce jeu est de sortir en empruntant le seul chemin possible dans un temps imparti.</p>
     <p>Utiliser les flèches directionnelles pour jouer.</p>
+    <div id="menu">
+        <div class="custom-select">
+            <select id="diffSelect">
+                <option value="10">Easy</option>
+                <option value="15">Medium</option>
+                <option value="25">Hard</option>
+                <option value="38">Extreme</option>
+            </select>
+        </div>
+    </div>
     <button id="playButton">Jouer</button>
-    <div id="maze" class="maze"></div>
+    <div id="gradient"></div>
+<div id="page">
+    <div id="Message-Container">
+        <div id="message">
+            <h1>Congratulations!</h1>
+            <p>You are done.</p>
+            <p id="moves"></p>
+            <input id="okBtn" type="button" onclick="toggleVisablity('Message-Container')" value="Cool!" />
+        </div>
+    </div>
+    <div id="view">
+        <div id="mazeContainer">
+            <canvas id="mazeCanvas" class="border" height="1100" width="1100"></canvas>
+        </div>
+    </div>
+</div>
+    <script src="test1.ts"></script>
     
-    <script src="maze.js"></script>
 </body>
 </html>
