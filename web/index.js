@@ -293,7 +293,4 @@ document.getElementById("button").addEventListener("click", () => {
     difficultyChoice = e.options[e.selectedIndex].value;
     console.log(difficultyChoice)
     Start(difficultyChoice);
-    
-
-    
 });
