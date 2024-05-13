@@ -15,7 +15,7 @@ const Difficulty = {
 }
 
 let length,cellSize,wallSize,xP,yP,maze,count,score,difficultyChoice
-
+let gameOver = false;
 const canvas = document.querySelector("canvas")
 
 const ctx = canvas.getContext("2d")
@@ -197,6 +197,12 @@ const drawPlayer = () => {
 }
 
 const Moving = (input) => {
+
+    if (checkWin()) {
+        document.getElementById("winMessage").style.display = "block";
+        return;
+    }
+
     const findPlayer = () => {
         for (let i = 0; i < maze.size; i++) {
             for (let f = 0; f < maze.size; f++) {
@@ -220,6 +226,8 @@ const Moving = (input) => {
         }
         return false
     }
+
+
     const move = (input,player) => {
         let NS = 0 
         let WE = 0
@@ -252,7 +260,6 @@ const Moving = (input) => {
     if (checkWin()) {
         console.log(score)
     }
-
 }   
 
 const checkWin = () => {
@@ -260,12 +267,12 @@ const checkWin = () => {
     let [xB, yB] = maze.find("B");
 
     if (xP === xB && yP === yB) {
-        document.getElementById("winMessage")
+        gameOver = true;
+        document.getElementById("winMessage").classList.add("show");
         return true;
     }
-    console.log(winMessage)
+    return false;
 }
-
 
 
 
@@ -298,8 +305,11 @@ document.getElementById("button").addEventListener("click", () => {
     difficultyChoice = e.options[e.selectedIndex].value;
     console.log(difficultyChoice)
     Start(difficultyChoice);
-    
-
-    
 });
 
+document.getElementById("replayButton").addEventListener("click", () => {
+    document.getElementById("winMessage").classList.remove("show");
+    var e = document.getElementById("diffSelect");
+    difficultyChoice = e.options[e.selectedIndex].value;
+    Start(difficultyChoice);
+});
