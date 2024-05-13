@@ -411,3 +411,4 @@ export const GenerationMaze = (size) => {
         laby.display()
     return laby
 }
+

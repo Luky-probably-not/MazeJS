@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Web App</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Labyrinthe</title>
+    <link rel="stylesheet" href="./css/test.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body onload="GenerationMaze(15)">
-    <h1>Welcome to my web app!</h1>
-    <p>This is a simple web page served by a JavaScript server.</p>
-    <div id="div1">The text above has been created dynamically.</div>
+<body>
+    <h1>Bienvenue dans le jeu du labyrinthe</h1>
+    <p>Le but du jeu est de sortir du labyrinthe dans un temps imparti, pour cela utiliser les flèches directionnelles.</p>
+    <button type="button" class="start">Jouer</button>
+
     <div id="MazeContainer">
         <canvas id="mazeCanvas" height="1100" width="1100"></canvas>
     </div>
