@@ -8,6 +8,7 @@ export default class Maze {
     laby
     length
     size
+
     constructor(size) {
         this.size = size
         this.emptyLaby()
@@ -181,13 +182,22 @@ export default class Maze {
             }
             console.log(`└${line}───┘`)
         }
-        const displayLine = (line) => {
+        const displayName = (line) => {
             let print = ""
             for (let i = 0; i < this.size-1; i++) {
                 print += ` ${line[i].name} `
                 print += line[i].east ? "│" : " "
             }
             print += ` ${line[line.length-1].name} `
+            console.log(`│${print}│`)
+        }
+        const displayLine = (line) => {
+            let print = ""
+            for (let i = 0; i < this.size-1; i++) {
+                print += line[i].name == " " ? "   " : ` ${line[i].name} `
+                print += line[i].east ? "│" : " "
+            }
+            print += line[line.length-1].name == " " ? "   " : ` ${line[line.length-1].name} `
             console.log(`│${print}│`)
         }
         const displaySeparator = (index) => {
@@ -217,9 +227,11 @@ export default class Maze {
         displayTop()
         for (let i = 0; i < this.length; i++) {
             displayLine(this.laby[i])
+            //displayName(this.laby[i])
             displaySeparator(i)
         }
         displayLine(this.laby[this.length])
+        //displayName(this.laby[this.length])
         displayBot()
     }
 
@@ -231,6 +243,7 @@ export default class Maze {
         let path = maze.Path(xA,yA) 
         
         let rev = maze.ReversePath(path)
+        this.rev = rev
         maze.solve(rev)
         maze.beauty()
         this.laby = maze.laby
@@ -238,15 +251,16 @@ export default class Maze {
     }
 
     StartEnd = () => {
-        let rng = Random(this.size)
-        this.laby[rng][rng].name = "A"
+        this.laby[Random(this.size)][Random(this.size)].name = "A"
         this.laby[Random(this.size)][Random(this.size)].name = "B"
+        this.laby[Random(this.size)][Random(this.size)].playerLocation = "P"
     }
 
     cleanse = () => {
         for (let i of this.laby) {
             for (let f of i) {
                 f.name = " "
+                f.playerLocation = ""
             }
         }
     }
@@ -400,7 +414,7 @@ export default class Maze {
 export const GenerationMaze = (size) => {
     let laby
     do {
-        laby = new Maze(15)
+        laby = new Maze(size)
         try {
             laby.Generation()
         } catch (e) {
@@ -408,7 +422,6 @@ export const GenerationMaze = (size) => {
         }
         break
     } while (true)
-        laby.display()
     return laby
 }
 
