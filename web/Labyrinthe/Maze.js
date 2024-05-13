@@ -253,7 +253,6 @@ export default class Maze {
     StartEnd = () => {
         this.laby[Random(this.size)][Random(this.size)].name = "A"
         this.laby[Random(this.size)][Random(this.size)].name = "B"
-        this.laby[Random(this.size)][Random(this.size)].playerLocation = "P"
     }
 
     cleanse = () => {
