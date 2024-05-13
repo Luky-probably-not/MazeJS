@@ -14,11 +14,7 @@ const Difficulty = {
 }
 
 let finish = false
-let length
-let cellSize
-let wallSize
-let xP,yP
-let maze
+let length,cellSize,wallSize,xP,yP,maze,count,score
 
 const canvas = document.querySelector("canvas")
 
@@ -177,6 +173,7 @@ const DisplaySolution = () => {
 }
 
 const Start = (difficulty) => {
+    score = 0
     length = Difficulty[`length${difficulty}`]
     maze = GenerationMaze(length)
     cellSize = Difficulty[`cellSize${difficulty}`]
@@ -213,8 +210,8 @@ const drawPlayer = () => {
 
 const Moving = (input) => {
     const findPlayer = () => {
-        for (let i = 0; i < maze.length; i++) {
-            for (let f = 0; f < maze.length; f++) {
+        for (let i = 0; i < maze.size; i++) {
+            for (let f = 0; f < maze.size; f++) {
                 if (maze.laby[i][f].playerLocation == "P") {
                     return [i,f]
                 }
@@ -262,18 +259,28 @@ const Moving = (input) => {
     if (check(input)) {
         return
     }
+    score++
     move(input,findPlayer())
+    if (checkWin()) {
+        console.log(score)
+    }
+
 }   
+
+const checkWin = () => {
+    let [xP,yP] = findPlayer()
+    return maze.laby[xP][yP].name == "B"
+}
 
 document.onkeydown = (e) => {
     if (e.key == "Enter") {
         DisplaySolution()
     } else if (e.key.includes("Arrow")) {
         Moving(e.key)
-        console.log(findPlayer())
         Displaymaze()
     }
 }
 
 Start("Mid")
 
+checkWin()
