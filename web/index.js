@@ -183,12 +183,14 @@ const Start = (difficulty) => {
     wallSize = Difficulty[`wallSize${difficulty}`]
     canvas.width = (cellSize+1) * length
     canvas.height = (cellSize+1) * length
+    let [xA,yA] = maze.find("A")
+    maze.laby[xA][yA].playerLocation = "P"
     Displaymaze()
 }
 
 const findPlayer = () => {
-    for (let i = 0; i < maze.length; i++) {
-        for (let f = 0; f < maze.length; f++) {
+    for (let i = 0; i < maze.size; i++) {
+        for (let f = 0; f < maze.size; f++) {
             if (maze.laby[i][f].playerLocation == "P") {
                 return [i,f]
             }
@@ -220,18 +222,18 @@ const Moving = (input) => {
         }
         return [-1,-1]
     }
-    const check = (player,input) => {
-        let [xP,yP] = player
-        if (maze.laby[xP,yP].north && input == "ArrowUp") {
-            return false
-        } else if (maze.laby[xP,yP].east && input == "ArrowRight") {
-            return false
-        } else if (maze.laby[xP,yP].south && input == "ArrowDown") {
-            return false
-        } else if (maze.laby[xP,yP].west && input == "ArrowLeft") {
-            return false
+    const check = (input) => {
+        let [xP,yP] = findPlayer()
+        if (maze.laby[xP][yP].north && input == "ArrowUp") {
+            return true
+        } else if (maze.laby[xP][yP].east && input == "ArrowRight") {
+            return true
+        } else if (maze.laby[xP][yP].south && input == "ArrowDown") {
+            return true
+        } else if (maze.laby[xP][yP].west && input == "ArrowLeft") {
+            return true
         }
-        return true
+        return false
     }
     const move = (input,player) => {
         let NS = 0 
@@ -239,34 +241,38 @@ const Moving = (input) => {
         let [xP,yP] = player
         if (input == "ArrowUp") {
             NS = -1
-            maze.laby[xP,yP].playerLocation = ""
+            maze.laby[xP][yP].playerLocation = ""
+            cleanCell(yP*cellSize+wallSize,xP*cellSize+wallSize)
         } else if (input == "ArrowDown") {
             NS = 1
-            maze.laby[xP,yP].playerLocation = ""
+            maze.laby[xP][yP].playerLocation = ""
+            cleanCell(yP*cellSize+wallSize,xP*cellSize+wallSize)
         } else if (input == "ArrowLeft") {
             WE = -1
-            maze.laby[xP,yP].playerLocation = ""
+            maze.laby[xP][yP].playerLocation = ""
+            cleanCell(yP*cellSize+wallSize,xP*cellSize+wallSize)
         } else if (input == "ArrowRight") {
+            console.log("Hello")
             WE = 1
-            maze.laby[xP,yP].playerLocation = ""
+            maze.laby[xP][yP].playerLocation = ""
+            cleanCell(yP*cellSize+wallSize,xP*cellSize+wallSize)
         }
         maze.laby[xP+NS][yP+WE].playerLocation = "P"
     }
-    if (!check(findPlayer(),input)) {
-        return false
+    if (check(input)) {
+        return
     }
     move(input,findPlayer())
 }   
 
 document.onkeydown = (e) => {
-    console.log(e.key)
     if (e.key == "Enter") {
         DisplaySolution()
     } else if (e.key.includes("Arrow")) {
         Moving(e.key)
+        console.log(findPlayer())
+        Displaymaze()
     }
-    console.log(findPlayer())
-    Displaymaze()
 }
 
 Start("Mid")
