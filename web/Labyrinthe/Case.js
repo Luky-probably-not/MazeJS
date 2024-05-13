@@ -4,7 +4,7 @@ export default class Case {
     east = true
     west = true
     name = " "
-
+    playerLocation = ""
     constructor(id) {
         this.id = id
     }
