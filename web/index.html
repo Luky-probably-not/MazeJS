@@ -12,7 +12,17 @@
 <body>
     <h1>Bienvenue dans le jeu du labyrinthe</h1>
     <p>Le but du jeu est de sortir du labyrinthe dans un temps imparti, pour cela utiliser les flèches directionnelles.</p>
-    <button type="button" class="start">Jouer</button>
+    <div id="menu">
+        <div class="custom-select">
+            <select id="diffSelect">
+                <option value="10">Easy</option>
+                <option value="15">Medium</option>
+                <option value="25">Hard</option>
+                <option value="38">Extreme</option>
+            </select>
+        </div>
+        <input id="button" type="button" onclick="makeMaze()" value="Jouer" class="start" />
+    </div>
 
 <script type="module" src="index.js"></script>
 <body>

@@ -222,13 +222,13 @@ const Moving = (input) => {
     }
     const check = (player,input) => {
         let [xP,yP] = player
-        if (maze.laby[xP,yP].north && input == "ArrowUp") {
+        if (maze.laby[xP][yP].north && input == "ArrowUp") {
             return false
-        } else if (maze.laby[xP,yP].east && input == "ArrowRight") {
+    } else if (maze.laby[xP][yP].east && input == "ArrowRight") {
             return false
-        } else if (maze.laby[xP,yP].south && input == "ArrowDown") {
+    } else if (maze.laby[xP][yP].south && input == "ArrowDown") {
             return false
-        } else if (maze.laby[xP,yP].west && input == "ArrowLeft") {
+        } else if (maze.laby[xP][yP].west && input == "ArrowLeft") {
             return false
         }
         return true
@@ -239,16 +239,16 @@ const Moving = (input) => {
         let [xP,yP] = player
         if (input == "ArrowUp") {
             NS = -1
-            maze.laby[xP,yP].playerLocation = ""
+            maze.laby[xP][yP].playerLocation = ""
         } else if (input == "ArrowDown") {
             NS = 1
-            maze.laby[xP,yP].playerLocation = ""
+            maze.laby[xP][yP].playerLocation = ""
         } else if (input == "ArrowLeft") {
             WE = -1
-            maze.laby[xP,yP].playerLocation = ""
+            maze.laby[xP][yP].playerLocation = ""
         } else if (input == "ArrowRight") {
             WE = 1
-            maze.laby[xP,yP].playerLocation = ""
+            maze.laby[xP][yP].playerLocation = ""
         }
         maze.laby[xP+NS][yP+WE].playerLocation = "P"
     }
