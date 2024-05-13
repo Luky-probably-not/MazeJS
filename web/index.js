@@ -14,7 +14,7 @@ const Difficulty = {
     wallSizeHard:3,
 }
 
-let length,cellSize,wallSize,xP,yP,maze,count,score,difficultyChoice
+let length,cellSize,wallSize,xP,yP,maze,count,score,difficultyChoice,dateStart
 let gameOver = false;
 const canvas = document.querySelector("canvas")
 
@@ -298,6 +298,13 @@ const Start = (difficulty) => {
     maze.laby[xA][yA].playerLocation = "P"
     maze.display()
     Displaymaze()
+    dateStart = Date.now()
+    setInterval(() => {
+        let diff = Date.now() - dateStart
+        let secondes = Math.floor(diff/1000)
+        let milliSecondes = Math.floor(diff/10)-secondes*100
+        document.getElementById("timer").innerHTML = `${secondes}.${milliSecondes}`
+    },10)
 }
 
 document.getElementById("button").addEventListener("click", () => {
