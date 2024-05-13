@@ -3,15 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Web App</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Labyrinthe</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<script type="module" src="index.js"></script>
+<script type="module" src="index.js"></script>  
 <body>
+    
+    <h1>Bienvenue dans le jeu du labyrinthe</h1>
+    <p>Le but du jeu est de sortir du labyrinthe dans un temps imparti, pour cela utiliser les flèches directionnelles.</p>
+    <div id="menu">
+        <div class="custom-select">
+            <select id="diffSelect">
+                <option value="Easy">Easy</option>
+                <option value="Mid">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+        </div>
+        <input id="button" type="button" value="Jouer" class="start"/>
+    </div>
+    <h1 id="timer"></h1>
     <div id="MazeContainer">
         <canvas id="mazeCanvas" height="1100" width="1100"></canvas>
     </div>
-
+    <div id="winMessage">You win</div>
 </body>
 
 </html>

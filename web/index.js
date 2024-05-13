@@ -13,8 +13,7 @@ const Difficulty = {
     wallSizeHard:3,
 }
 
-let finish = false
-let length,cellSize,wallSize,xP,yP,maze,count,score
+let length,cellSize,wallSize,maze,score,dateStart,difficultyChoice
 
 const canvas = document.querySelector("canvas")
 
@@ -152,6 +151,7 @@ const Path = () => {
 }
 
 const Displaymaze = () => {
+    ctx.clearRect(0,0,canvas.width,canvas.height)
     for (let i = 0; i < maze.size; i++) {
         for (let f = 0; f < maze.size; f++) {
             drawCell(f,i,maze.laby[i][f])
@@ -183,6 +183,8 @@ const Start = (difficulty) => {
     let [xA,yA] = maze.find("A")
     maze.laby[xA][yA].playerLocation = "P"
     Displaymaze()
+    dateStart = Date.now()
+    timer
 }
 
 const findPlayer = () => {
@@ -249,7 +251,6 @@ const Moving = (input) => {
             maze.laby[xP][yP].playerLocation = ""
             cleanCell(yP*cellSize+wallSize,xP*cellSize+wallSize)
         } else if (input == "ArrowRight") {
-            console.log("Hello")
             WE = 1
             maze.laby[xP][yP].playerLocation = ""
             cleanCell(yP*cellSize+wallSize,xP*cellSize+wallSize)
@@ -262,10 +263,16 @@ const Moving = (input) => {
     score++
     move(input,findPlayer())
     if (checkWin()) {
-        console.log(score)
+        console.log(document.getElementById("winMessage"))
     }
-
 }   
+
+const timer = setInterval(() => {
+    let diff = Date.now() - dateStart
+    let secondes = Math.floor(diff/1000)
+    let milliSecondes = Math.floor(diff/10)-secondes*100
+    document.getElementById("timer").innerHTML = `${secondes}.${milliSecondes}`
+},10)
 
 const checkWin = () => {
     let [xP,yP] = findPlayer()
@@ -281,6 +288,12 @@ document.onkeydown = (e) => {
     }
 }
 
-Start("Mid")
+document.getElementById("button").addEventListener("click", () => {
+    var e = document.getElementById("diffSelect");
+    difficultyChoice = e.options[e.selectedIndex].value;
+    console.log(difficultyChoice)
+    Start(difficultyChoice);
+    
 
-checkWin()
+    
+});
