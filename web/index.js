@@ -256,9 +256,19 @@ const Moving = (input) => {
 }   
 
 const checkWin = () => {
-    let [xP,yP] = findPlayer()
-    return maze.laby[xP][yP].name == "B"
+    let [xP, yP] = findPlayer();
+    let [xB, yB] = maze.find("B");
+
+    if (xP === xB && yP === yB) {
+        document.getElementById("winMessage")
+        return true;
+    }
+    console.log(winMessage)
 }
+
+
+
+
 
 document.onkeydown = (e) => {
     if (e.key == "Enter") {
