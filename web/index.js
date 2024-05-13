@@ -272,14 +272,4 @@ document.onkeydown = (e) => {
 Start("Mid")
 
 
-const Start = (difficulty) => {
-    length = Difficulty[`length${difficulty}`]
-    maze = GenerationMaze(length)
-    cellSize = Difficulty[`cellSize${difficulty}`]
-    wallSize = Difficulty[`wallSize${difficulty}`]
-    canvas.width = (cellSize+1) * length
-    canvas.height = (cellSize+1) * length
-    Displaymaze();
-}
-
 Start("Hard");
