@@ -1,6 +1,7 @@
 import { default as Maze } from "./Labyrinthe/Maze.js"
 import { GenerationMaze } from "./Labyrinthe/Maze.js"
 
+
 const Difficulty = {
     lengthEasy : 10,
     lengthMid: 15,
@@ -13,8 +14,7 @@ const Difficulty = {
     wallSizeHard:3,
 }
 
-let finish = false
-let length,cellSize,wallSize,xP,yP,maze,count,score
+let length,cellSize,wallSize,xP,yP,maze,count,score,difficultyChoice
 
 const canvas = document.querySelector("canvas")
 
@@ -172,18 +172,6 @@ const DisplaySolution = () => {
     StartEnd()
 }
 
-const Start = (difficulty) => {
-    score = 0
-    length = Difficulty[`length${difficulty}`]
-    maze = GenerationMaze(length)
-    cellSize = Difficulty[`cellSize${difficulty}`]
-    wallSize = Difficulty[`wallSize${difficulty}`]
-    canvas.width = (cellSize+1) * length
-    canvas.height = (cellSize+1) * length
-    let [xA,yA] = maze.find("A")
-    maze.laby[xA][yA].playerLocation = "P"
-    Displaymaze()
-}
 
 const findPlayer = () => {
     for (let i = 0; i < maze.size; i++) {
@@ -280,7 +268,28 @@ document.onkeydown = (e) => {
         Displaymaze()
     }
 }
+const Start = (difficulty) => {
 
-Start("Mid")
+    score = 0
+    length = Difficulty[`length${difficulty}`]
+    maze = GenerationMaze(length)
+    cellSize = Difficulty[`cellSize${difficulty}`]
+    wallSize = Difficulty[`wallSize${difficulty}`]
+    canvas.width = (cellSize+1) * length
+    canvas.height = (cellSize+1) * length
+    let [xA,yA] = maze.find("A")
+    maze.laby[xA][yA].playerLocation = "P"
+    maze.display()
+    Displaymaze()
+}
 
-checkWin()
+document.getElementById("button").addEventListener("click", () => {
+    var e = document.getElementById("diffSelect");
+    difficultyChoice = e.options[e.selectedIndex].value;
+    console.log(difficultyChoice)
+    Start(difficultyChoice);
+    
+
+    
+});
+
