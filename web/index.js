@@ -13,7 +13,7 @@ const Difficulty = {
     wallSizeHard:3,
 }
 
-let length,cellSize,wallSize,maze,score,dateStart,difficultyChoice
+let length,cellSize,wallSize,maze,score,dateStart,difficultyChoice,chrono,finish
 
 const canvas = document.querySelector("canvas")
 
@@ -184,6 +184,7 @@ const Start = (difficulty) => {
     maze.laby[xA][yA].playerLocation = "P"
     Displaymaze()
     dateStart = Date.now()
+    finish = true
     timer
 }
 
@@ -263,19 +264,23 @@ const Moving = (input) => {
     score++
     move(input,findPlayer())
     if (checkWin()) {
+        finish = false
         console.log(document.getElementById("winMessage"))
     }
 }   
 
 const timer = setInterval(() => {
-    let diff = Date.now() - dateStart
-    let secondes = Math.floor(diff/1000)
-    let milliSecondes = Math.floor(diff/10)-secondes*100
-    document.getElementById("timer").innerHTML = `${secondes}.${milliSecondes}`
+    if (finish) {
+        chrono = Date.now() - dateStart
+        let secondes = Math.floor(chrono/1000)
+        let milliSecondes = Math.floor(chrono/10)-secondes*100
+        document.getElementById("timer").innerHTML = `${secondes}.${milliSecondes}`
+    }
 },10)
 
 const checkWin = () => {
     let [xP,yP] = findPlayer()
+
     return maze.laby[xP][yP].name == "B"
 }
 
