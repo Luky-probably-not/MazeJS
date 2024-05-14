@@ -1,6 +1,7 @@
 import { default as Maze } from "./Labyrinthe/Maze.js"
 import { GenerationMaze } from "./Labyrinthe/Maze.js"
 
+
 const Difficulty = {
     lengthEasy : 10,
     lengthMid: 15,
@@ -13,8 +14,7 @@ const Difficulty = {
     wallSizeHard:3,
 }
 
-let length,cellSize,wallSize,maze,score,dateStart,difficultyChoice,chrono,finish
-
+let length,cellSize,wallSize,maze,score,difficultyChoice,dateStart, finish
 const canvas = document.querySelector("canvas")
 
 const ctx = canvas.getContext("2d")
@@ -172,21 +172,6 @@ const DisplaySolution = () => {
     StartEnd()
 }
 
-const Start = (difficulty) => {
-    score = 0
-    length = Difficulty[`length${difficulty}`]
-    maze = GenerationMaze(length)
-    cellSize = Difficulty[`cellSize${difficulty}`]
-    wallSize = Difficulty[`wallSize${difficulty}`]
-    canvas.width = (cellSize+1) * length
-    canvas.height = (cellSize+1) * length
-    let [xA,yA] = maze.find("A")
-    maze.laby[xA][yA].playerLocation = "P"
-    Displaymaze()
-    dateStart = Date.now()
-    finish = true
-    timer
-}
 
 const findPlayer = () => {
     for (let i = 0; i < maze.size; i++) {
@@ -212,6 +197,12 @@ const drawPlayer = () => {
 }
 
 const Moving = (input) => {
+
+    if (checkWin()) {
+        document.getElementById("winMessage").style.display = "block";
+        return;
+    }
+
     const findPlayer = () => {
         for (let i = 0; i < maze.size; i++) {
             for (let f = 0; f < maze.size; f++) {
@@ -235,6 +226,8 @@ const Moving = (input) => {
         }
         return false
     }
+
+
     const move = (input,player) => {
         let NS = 0 
         let WE = 0
@@ -252,6 +245,7 @@ const Moving = (input) => {
             maze.laby[xP][yP].playerLocation = ""
             cleanCell(yP*cellSize+wallSize,xP*cellSize+wallSize)
         } else if (input == "ArrowRight") {
+            console.log("Hello")
             WE = 1
             maze.laby[xP][yP].playerLocation = ""
             cleanCell(yP*cellSize+wallSize,xP*cellSize+wallSize)
@@ -264,38 +258,61 @@ const Moving = (input) => {
     score++
     move(input,findPlayer())
     if (checkWin()) {
+        
         finish = false
-        console.log(document.getElementById("winMessage"))
+        document.getElementById("winMessage").classList.add("show");
     }
 }   
 
-const timer = setInterval(() => {
-    if (finish) {
-        chrono = Date.now() - dateStart
-        let secondes = Math.floor(chrono/1000)
-        let milliSecondes = Math.floor(chrono/10)-secondes*100
-        document.getElementById("timer").innerHTML = `${secondes}.${milliSecondes}`
-    }
-},10)
-
 const checkWin = () => {
-    let [xP,yP] = findPlayer()
-
+    let [xP, yP] = findPlayer();
     return maze.laby[xP][yP].name == "B"
 }
+
+
+
 
 document.onkeydown = (e) => {
     if (e.key == "Enter") {
         DisplaySolution()
     } else if (e.key.includes("Arrow")) {
+
         Moving(e.key)
         Displaymaze()
     }
+}
+const Start = (difficulty) => {
+    finish = true
+    score = 0
+    length = Difficulty[`length${difficulty}`]
+    maze = GenerationMaze(length)
+    cellSize = Difficulty[`cellSize${difficulty}`]
+    wallSize = Difficulty[`wallSize${difficulty}`]
+    canvas.width = (cellSize+1) * length
+    canvas.height = (cellSize+1) * length
+    let [xA,yA] = maze.find("A")
+    maze.laby[xA][yA].playerLocation = "P"
+    Displaymaze()
+    dateStart = Date.now()
+    setInterval(() => {
+        if (finish) {
+           let diff = Date.now() - dateStart
+           let secondes = Math.floor(diff/1000)
+           let milliSecondes = Math.floor(diff/10)-secondes*100
+           document.getElementById("timer").innerHTML = `${secondes}.${milliSecondes}`}
+    },10)
 }
 
 document.getElementById("button").addEventListener("click", () => {
     var e = document.getElementById("diffSelect");
     difficultyChoice = e.options[e.selectedIndex].value;
     console.log(difficultyChoice)
+    Start(difficultyChoice);
+});
+
+document.getElementById("replayButton").addEventListener("click", () => {
+    document.getElementById("winMessage").classList.remove("show");
+    var e = document.getElementById("diffSelect");
+    difficultyChoice = e.options[e.selectedIndex].value;
     Start(difficultyChoice);
 });

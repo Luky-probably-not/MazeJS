@@ -9,26 +9,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<script type="module" src="index.js"></script>  
 <body>
-    
     <h1>Bienvenue dans le jeu du labyrinthe</h1>
     <p>Le but du jeu est de sortir du labyrinthe dans un temps imparti, pour cela utiliser les flèches directionnelles.</p>
     <div id="menu">
         <div class="custom-select">
             <select id="diffSelect">
-                <option value="Easy">Easy</option>
-                <option value="Mid">Medium</option>
-                <option value="Hard">Hard</option>
+                <option value="Easy">Facile</option>
+                <option value="Mid">Intermédiaire</option>
+                <option value="Hard">Difficile</option>
             </select>
         </div>
         <input id="button" type="button" value="Jouer" class="start"/>
     </div>
-    <h1 id="timer"></h1>
     <div id="MazeContainer">
         <canvas id="mazeCanvas" height="1100" width="1100"></canvas>
     </div>
-    <div id="winMessage">You win</div>
+    <h1 id="timer" class="timer"></h1>
+    <div id="winMessage">
+        <p>Bien joué tu as réussi à atteindre le point de sortie.</p>
+        <input id="replayButton" type="button" value="Rejouer" class="start"/>
+    </div>
+    <script type="module" src="index.js"></script>  
 </body>
-
 </html>

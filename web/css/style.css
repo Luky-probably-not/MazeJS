@@ -4,7 +4,7 @@ body {
   background: linear-gradient(to right, #757f9a, #d7dde8);
 }
 
-.custom-select select, #button {
+.custom-select select, #button, #replayButton {
   font-size: 16px;
   letter-spacing: 2px;
   text-decoration: none;
@@ -39,4 +39,21 @@ body {
 
 #winMessage {
   display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  z-index: 9999; 
+  opacity: 0;
+  transition: opacity 0.5s ease; 
+}
+
+#winMessage.show {
+  opacity: 1; 
 }
